@@ -2,21 +2,23 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 
-const dirPath = path.resolve (__dirname, './needTranslateFiles/');
-const formatDirPath = path.resolve (__dirname, './formatedFiles/');
+const DIR_PATH = path.resolve (__dirname, './needTranslateFiles/');
+const FORMATED_DIR_PATH = path.resolve (__dirname, './formatedFiles/');
+const TEMP_LINE = 'Dialogue: 0,0:00:00.00,0:00:05.00,Default,,0,0,0,,{{text}}';
+// const dirPath = path.resolve (__dirname, './needTranslateFiles/');
+// const formatDirPath = path.resolve (__dirname, './formatedFiles/');
 
-const dirNameArr = fs.readdirSync (path.resolve (dirPath));
+const dirNameArr = fs.readdirSync (path.resolve (DIR_PATH));
 
-const files = _.map (dirNameArr, fileName => {
-  const fileDoc = fs.readFileSync (path.resolve (dirPath, fileName), {
+_.each (dirNameArr, fileName => {
+  const fileDoc = fs.readFileSync (path.resolve (DIR_PATH, fileName), {
     encoding: 'utf8',
   });
 
   const fileDocLines = fileDoc.split ('\n');
-  console.log (fileDocLines);
-  const tempLine = 'Dialogue: 0,0:00:00.00,0:00:05.00,Default,,0,0,0,,{{text}}';
+
   const dialogs = _.map (fileDocLines, text => {
-    return tempLine.replace ('{{text}}', text);
+    return TEMP_LINE.replace ('{{text}}', text);
   });
   const fileDocDetail = `
     [Script Info]
@@ -41,12 +43,9 @@ ${dialogs.join ('\n')}
   `;
 
   fs.writeFileSync (
-    path.resolve (formatDirPath, fileName.split ('.')[0] + '.ass'),
+    path.resolve (FORMATED_DIR_PATH, fileName.split ('.')[0] + '.ass'),
     fileDocDetail
   );
-
-  console.log (fileDocDetail);
-  return fileDoc;
 });
 
-console.log (dirNameArr, files);
+console.log ('Success!');
