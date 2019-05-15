@@ -1,0 +1,29 @@
+{
+  "name": "format-translation-files",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sammffl/format-translation-files.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sammffl/format-translation-files/issues"
+  },
+  "homepage": "https://github.com/sammffl/format-translation-files#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "lodash": "^4.17.11",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}
